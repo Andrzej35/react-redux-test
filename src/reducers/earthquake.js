@@ -11,7 +11,7 @@ export default (state = initialState, action) => {
         case FILTER_BY_MAGTYPE:
             return filterState(state, action, 'magType')
         case RESET_FILTERS:
-            return [...state, ...action.payload.features]
+            return [...initialState, ...action.payload.features]
         default:
             return state
     }

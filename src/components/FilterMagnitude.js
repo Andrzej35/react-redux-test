@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { filterByMagnitude } from '../actions'
 
@@ -8,7 +9,8 @@ import Input from './input.component'
 class FilterMagnitude extends React.Component {
 
     state = {
-        value: ''
+        value: '',
+        text: 'example input 1.1'
     }
 
     filterBy(mag) {
@@ -21,15 +23,23 @@ class FilterMagnitude extends React.Component {
         })
     }
 
+    handleSubmit() {
+
+        this.props.filterByMagnitude(Number(this.state.value))
+        this.setState({
+            value: ''
+        })
+    }
+
     render() {
 
         return (
             <div className="row">
                 <div className="col">
                     <div className="input-group mb-3">
-                        <Input type="text" className="form-control" placeholder="example input 1.1" onChange={(e) => this.handleChange(e)} />
+                        <Input type="text" className="form-control" placeholder={this.state.text} onChange={(e) => this.handleChange(e)} value={this.state.value} />
                         <div className="input-group-append">
-                            <Button type='button' className="btn btn-outline-secondary" onClick={() => this.props.filterByMagnitude(Number(this.state.value))} text='Filter By Magnitude' />
+                            <Button type='button' className="btn btn-outline-secondary" onClick={() => this.handleSubmit()} text='Filter By Magnitude' />
                         </div>
                     </div>
                 </div>
@@ -38,10 +48,12 @@ class FilterMagnitude extends React.Component {
     }
 }
 
+FilterMagnitude.propTypes = {
+    filterByMagnitude: PropTypes.func.isRequired
+}
 
 const mapStateToProps = state => ({
-    earthquakes: state.earthquakes,
-    filterMagnitude: state.earthquakes
+    earthquakes: state.earthquakes
 })
 
 export default connect(mapStateToProps, { filterByMagnitude })(FilterMagnitude)

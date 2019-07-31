@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { filterByMagtype } from '../actions'
 import Button from './button.component'
@@ -38,10 +39,13 @@ class FilterMagType extends React.Component {
     }
 }
 
+FilterMagType.propTypes = {
+    filterByMagtype: PropTypes.func.isRequired
+}
+
 
 const mapStateToProps = state => ({
-    earthquakes: state.earthquakes,
-    filterMagType: state.earthquakes
+    earthquakes: state.earthquakes
 })
 
 export default connect(mapStateToProps, { filterByMagtype })(FilterMagType)

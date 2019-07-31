@@ -1,10 +1,24 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 import Button from './button.component'
+import { resetFilters } from '../actions'
 
-const ResetBtn = () => (
-    <p>
-        <Button className="btn btn-danger" onClick={() => document.location.reload()} text='Reset Btn' />
-    </p>
-)
+class ResetBtn extends React.Component {
+    render() {
+        return (<p>
+            <Button className="btn btn-danger" onClick={() => this.props.resetFilters()} text='Reset Btn' />
+        </p >)
+    }
 
-export default ResetBtn
+}
+
+ResetBtn.propTypes = {
+    resetFilters: PropTypes.func.isRequired
+}
+
+const mapStateToProps = state => ({
+    earthquakes: state.earthquakes
+})
+
+export default connect(mapStateToProps, { resetFilters })(ResetBtn)
