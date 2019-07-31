@@ -43,9 +43,4 @@ FilterMagType.propTypes = {
     filterByMagtype: PropTypes.func.isRequired
 }
 
-
-const mapStateToProps = state => ({
-    earthquakes: state.earthquakes
-})
-
-export default connect(mapStateToProps, { filterByMagtype })(FilterMagType)
+export default connect(null, { filterByMagtype })(FilterMagType)

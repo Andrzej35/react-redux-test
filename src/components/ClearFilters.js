@@ -17,8 +17,4 @@ ResetBtn.propTypes = {
     resetFilters: PropTypes.func.isRequired
 }
 
-const mapStateToProps = state => ({
-    earthquakes: state.earthquakes
-})
-
-export default connect(mapStateToProps, { resetFilters })(ResetBtn)
+export default connect(null, { resetFilters })(ResetBtn)

@@ -52,8 +52,4 @@ FilterMagnitude.propTypes = {
     filterByMagnitude: PropTypes.func.isRequired
 }
 
-const mapStateToProps = state => ({
-    earthquakes: state.earthquakes
-})
-
-export default connect(mapStateToProps, { filterByMagnitude })(FilterMagnitude)
+export default connect(null, { filterByMagnitude })(FilterMagnitude)
