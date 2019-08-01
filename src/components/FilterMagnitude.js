@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { filterByMagnitude } from '../actions'
@@ -6,50 +6,40 @@ import { filterByMagnitude } from '../actions'
 import Button from './button.component'
 import Input from './input.component'
 
-class FilterMagnitude extends React.Component {
+function FilterMagnitude(props) {
 
-    state = {
-        value: '',
-        text: 'example input 1.1'
+    const [value, setValue] = useState('')
+
+    function handleChange(e) {
+        return setValue(e.target.value)
     }
 
-    filterBy(mag) {
-        return mag.properties.mag === mag
+    function handleSubmit() {
+        props.filterByMagnitude(Number(value))
     }
 
-    handleChange(e) {
-        this.setState({
-            value: e.target.value
-        })
-    }
-
-    handleSubmit() {
-
-        this.props.filterByMagnitude(Number(this.state.value))
-        this.setState({
-            value: ''
-        })
-    }
-
-    render() {
-
-        return (
-            <div className="row">
-                <div className="col">
-                    <div className="input-group mb-3">
-                        <Input type="text" className="form-control" placeholder={this.state.text} onChange={(e) => this.handleChange(e)} value={this.state.value} />
-                        <div className="input-group-append">
-                            <Button type='button' className="btn btn-outline-secondary" onClick={() => this.handleSubmit()} text='Filter By Magnitude' />
-                        </div>
+    // console.log(this.props)
+    return (
+        <div className="row">
+            <div className="col">
+                <div className="input-group mb-3">
+                    <Input type="text" className="form-control" placeholder='example input: 1.1' onChange={(e) => handleChange(e)} />
+                    <div className="input-group-append">
+                        <Button type='button' className="btn btn-outline-secondary" onClick={() => handleSubmit()} text='Filter By Magnitude' />
                     </div>
                 </div>
             </div>
-        )
-    }
+        </div>
+    )
 }
+
+const mapStateToProps = (state) => ({
+    earthquakes: state.earthquakes,
+    magnitude: state.magnitude
+})
 
 FilterMagnitude.propTypes = {
     filterByMagnitude: PropTypes.func.isRequired
 }
 
-export default connect(null, { filterByMagnitude })(FilterMagnitude)
+export default connect(mapStateToProps, { filterByMagnitude })(FilterMagnitude)
