@@ -5,11 +5,11 @@ import { filterByMagtype } from '../actions'
 import Button from './button.component'
 import Input from './input.component'
 
-function FilterMagType(props) {
+const FilterMagType = (props) => {
 
     const [value, setValue] = useState('')
 
-    function handleChange(e) {
+    const handleChange = (e) => {
         return setValue(e.target.value)
     }
 
